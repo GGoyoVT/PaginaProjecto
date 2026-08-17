@@ -301,6 +301,8 @@ function setupAuth() {
     const footerLink = document.getElementById("adminFooterLink");
     if (footerLink) footerLink.classList.toggle("hidden", !logged);
     authBtn.textContent = logged ? "Salir" : "Ingresar";
+    const mobileLink = document.getElementById("authMobileLink");
+    if (mobileLink) mobileLink.textContent = logged ? "Salir" : "Ingresar";
   }
 
   function openAuth() {
@@ -321,6 +323,25 @@ function setupAuth() {
     }
     openAuth();
   });
+
+  const mobileLink = document.getElementById("authMobileLink");
+  if (mobileLink) {
+    mobileLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (isLoggedIn()) {
+        if (!confirm("¿Quieres cerrar la sesión de administrador?")) return;
+        sessionStorage.removeItem(SESSION_KEY);
+        updateAuthUI();
+        const nav = document.getElementById("nav");
+        nav.classList.remove("open");
+        const navToggle = document.getElementById("navToggle");
+        navToggle.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+        return;
+      }
+      openAuth();
+    });
+  }
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
