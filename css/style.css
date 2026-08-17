@@ -199,7 +199,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(20, 10, 8, 0.45), rgba(14, 8, 6, 0.7));
+  background: transparent;
 }
 .hero-content { position: relative; z-index: 2; max-width: 720px; text-align: center; margin: 0 auto; }
 .hero-logo {
