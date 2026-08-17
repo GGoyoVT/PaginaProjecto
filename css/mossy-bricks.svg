@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="92" viewBox="0 0 200 92">
+  <defs>
+    <linearGradient id="brick" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7d5441"/>
+      <stop offset="0.5" stop-color="#6b4634"/>
+      <stop offset="1" stop-color="#573726"/>
+    </linearGradient>
+    <linearGradient id="brickDark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6b4634"/>
+      <stop offset="0.5" stop-color="#5d3d2c"/>
+      <stop offset="1" stop-color="#4b2f20"/>
+    </linearGradient>
+  </defs>
+
+  <!-- mortero -->
+  <rect width="200" height="92" fill="#322c25"/>
+
+  <!-- Fila 1 -->
+  <rect x="0"   y="0"  width="90" height="40" fill="url(#brick)"/>
+  <rect x="100" y="0"  width="90" height="40" fill="url(#brickDark)"/>
+  <!-- Fila 2 (desplazada) -->
+  <rect x="0"   y="46" width="40" height="40" fill="url(#brickDark)"/>
+  <rect x="50"  y="46" width="90" height="40" fill="url(#brick)"/>
+  <rect x="150" y="46" width="40" height="40" fill="url(#brick)"/>
+
+  <!-- textura de ladrillo -->
+  <g stroke="#4c2f20" stroke-width="1" opacity="0.5" fill="none">
+    <path d="M8 10 q4 6 0 12 M18 14 q3 5 0 10 M30 8 q5 8 0 16"/>
+    <path d="M112 12 q4 6 0 12 M128 16 q3 5 0 10 M150 10 q5 8 0 16"/>
+    <path d="M8 56 q4 6 0 12 M60 52 q5 8 0 16 M158 58 q4 6 0 12 M178 54 q3 5 0 10"/>
+  </g>
+
+  <!-- musgo en grietas superiores -->
+  <g fill="#4a6b2f">
+    <circle cx="12"  cy="4"  r="6"/><circle cx="20" cy="1"  r="4"/>
+    <circle cx="84"  cy="5"  r="5"/><circle cx="90" cy="2"  r="3"/>
+    <circle cx="138" cy="4"  r="7"/><circle cx="148" cy="7" r="4"/>
+    <circle cx="196" cy="3"  r="5"/>
+  </g>
+  <g fill="#5c8437">
+    <circle cx="15"  cy="5" r="3"/><circle cx="82"  cy="3" r="3"/>
+    <circle cx="136" cy="5" r="3"/><circle cx="194" cy="4" r="3"/>
+  </g>
+
+  <!-- musgo en la junta horizontal -->
+  <g fill="#415d29">
+    <circle cx="55" cy="43" r="7"/><circle cx="68" cy="45" r="4"/>
+    <circle cx="105" cy="43" r="5"/><circle cx="120" cy="44" r="6"/>
+    <circle cx="175" cy="43" r="6"/><circle cx="188" cy="45" r="4"/>
+    <circle cx="34" cy="44" r="4"/><circle cx="148" cy="44" r="3"/>
+  </g>
+  <g fill="#5c8437">
+    <circle cx="60" cy="44" r="3"/><circle cx="112" cy="43" r="3"/>
+    <circle cx="180" cy="44" r="3"/>
+  </g>
+
+  <!-- musgo en grietas verticales -->
+  <g fill="#4a6b2f">
+    <circle cx="95" cy="14" r="4"/><circle cx="96" cy="24" r="3"/>
+    <circle cx="45" cy="52" r="4"/><circle cx="46" cy="64" r="3"/>
+  </g>
+
+  <!-- musgo en la base inferior -->
+  <g fill="#3a5526">
+    <circle cx="8"   cy="89" r="6"/><circle cx="26" cy="90" r="4"/>
+    <circle cx="98"  cy="88" r="7"/><circle cx="118" cy="91" r="4"/>
+    <circle cx="168" cy="88" r="5"/><circle cx="188" cy="90" r="4"/>
+  </g>
+  <g fill="#5c8437">
+    <circle cx="12"  cy="89" r="3"/><circle cx="103" cy="89" r="3"/>
+    <circle cx="172" cy="89" r="3"/>
+  </g>
+</svg>

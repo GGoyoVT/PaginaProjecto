@@ -1,0 +1,42 @@
+"Crea el diseño, estructura y contenido completo para una página web moderna, atractiva y funcional para un negocio called [NOMBRE DE TU CIBER], que funciona como ciber café y también vende productos.
+ 
+Servicios que ofrecemos:
+ 
+​
+- Acceso a computadoras de alto rendimiento para juegos, trabajo, estudio y navegación
+​
+- Alquiler por hora, paquetes de tiempo y membresías
+​
+- Impresiones, copias, escaneos y envío de documentos
+​
+- Servicio de Wi-Fi de alta velocidad
+​
+- Torneos de videojuegos y eventos especiales
+ 
+Productos que vendemos:
+ 
+​
+- Bebidas frías y calientes (gaseosas, jugos, café, energizantes)
+​
+- Snacks, golosinas, galletas, papas fritas
+​
+- Artículos de informática básica: pendrives, auriculares, mouse, teclados, cables
+​
+- Tarjetas de recarga, saldo para juegos y tarjetas prepagas
+ 
+Características que debe tener la web:
+ 
+​
+1. Diseño juvenil, dinámico, con colores llamativos pero profesionales (azul oscuro, naranja, negro o verde neón), estilo gamer y moderno.
+​
+2. Secciones claras: Inicio, Servicios, Tienda / Productos, Precios y Paquetes, Torneos/Eventos, Ubicación y Contacto.
+​
+3. En la sección de Tienda: mostrar productos con foto, nombre, precio y opción de ver detalles o reservar.
+​
+4. En la sección de Precios: tabla clara con tarifas por hora, paquetes de 2h, 5h, 10h y membresías mensuales.
+​
+5. Formulario de contacto, mapa de ubicación integrado, botón de WhatsApp flotante y enlaces a redes sociales.
+​
+6. Textos cortos, claros, amigables y dirigidos a jóvenes, estudiantes y gamers.
+​
+7. Que sea responsiva, es decir, que se vea perfecto en celulares, tabletas y computadoras.

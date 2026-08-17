@@ -1,0 +1,16 @@
+# Dependencias / archivos locales
+node_modules/
+*.log
+
+# Secretos: nunca subir tokens ni credenciales
+tokens.txt
+tokens.TXT
+*.key
+*.pem
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Git
+.git/

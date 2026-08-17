@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de administración — Ciber del Bosque</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ======= FONDO EN 3 COLUMNAS ======= -->
+  <div class="bg-layout" aria-hidden="true">
+    <div class="bg-col bg-left"></div>
+    <div class="bg-col bg-center"></div>
+    <div class="bg-col bg-right"></div>
+  </div>
+
+  <!-- ======= HEADER ======= -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">&#x1F3AE;</span>
+        <span class="logo-text">Ciber del Bosque</span>
+      </a>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Ver tienda</a></li>
+          <li><a href="#gestion" class="nav-link">Panel de administración</a></li>
+        </ul>
+      </nav>
+      <a href="index.html" class="btn btn-primary btn-cta">Volver a la web</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="gestion" class="section">
+      <div class="container admin-container">
+        <div class="section-head">
+          <p class="section-kicker">Panel de administración</p>
+          <h2 class="section-title">Gestiona productos, precios y <span class="neon green">torneos</span></h2>
+          <p class="section-desc">Los cambios se guardan automáticamente en este navegador y se reflejan en la web. Las imágenes son opcionales.</p>
+        </div>
+
+        <!-- ======= TABS ======= -->
+        <div class="admin-tabs" role="tablist">
+          <button class="admin-tab active" id="tab-productos" data-tab="productos">🛒 Productos</button>
+          <button class="admin-tab" id="tab-precios" data-tab="precios">💲 Precios</button>
+          <button class="admin-tab" id="tab-torneos" data-tab="torneos">🏆 Torneos</button>
+        </div>
+
+        <!-- ======= PRODUCTOS ======= -->
+        <div class="admin-panel active" id="panel-productos">
+          <div class="admin-grid">
+            <div class="admin-form-card">
+              <h3 id="prodFormTitle">Agregar producto</h3>
+              <form id="productForm" novalidate>
+                <input type="hidden" id="pId">
+                <div class="form-row">
+                  <input type="text" id="pName" placeholder="Nombre del producto (ej. Gaseosa 500ml)" required>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="pCat" placeholder="Categoría (ej. Bebidas, Accesorios...)" required>
+                </div>
+                <div class="form-row form-row-inline">
+                  <input type="text" id="pEmoji" placeholder="Emoji (opcional)">
+                  <span class="field-hint">Usa emoji si no subes imagen</span>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="pPrice" placeholder="Precio en guaraníes (ej. ₲15.000)" required>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="pDesc" placeholder="Descripción corta" required>
+                </div>
+                <div class="form-row image-upload-row">
+                  <label class="image-upload" id="imageUploadLabel">
+                    <input type="file" id="pImage" accept="image/*">
+                    <span id="uploadPlaceholder">&#128247; Subir imagen del producto (opcional)</span>
+                    <img id="uploadPreview" class="hidden" alt="Vista previa">
+                  </label>
+                  <button type="button" class="btn btn-sm btn-danger hidden" id="btnRemoveImage">Quitar imagen</button>
+                </div>
+                <div class="admin-actions">
+                  <button type="submit" class="btn btn-primary btn-sm" id="btnSave">Agregar producto</button>
+                  <button type="button" class="btn btn-outline btn-sm hidden" id="btnCancel">Cancelar edición</button>
+                </div>
+                <p class="form-status" id="adminStatus" role="status"></p>
+              </form>
+            </div>
+
+            <div class="admin-list-card">
+              <h3>Productos actuales <span id="productCount" class="count-badge"></span></h3>
+              <div id="adminProductList"><!-- JS --></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======= PRECIOS ======= -->
+        <div class="admin-panel" id="panel-precios">
+          <div class="admin-grid">
+            <div class="admin-form-card">
+              <h3 id="priceFormTitle">Agregar plan</h3>
+              <form id="priceForm" novalidate>
+                <input type="hidden" id="pcId">
+                <div class="form-row">
+                  <input type="text" id="pcName" placeholder="Nombre del plan (ej. 1 Hora)" required>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="pcAmount" placeholder="Precio en guaraníes (ej. ₲15.000)" required>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="pcUnit" placeholder="Unidad (ej. / hora, / mes)" required>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="pcFeatures" placeholder="Características (separa con comas)" required>
+                </div>
+                <div class="form-row form-row-inline">
+                  <label class="field-hint" style="margin:0">
+                    <input type="checkbox" id="pcPopular" style="width:auto; margin-right:6px">Destacar como más popular
+                  </label>
+                </div>
+                <div class="admin-actions">
+                  <button type="submit" class="btn btn-primary btn-sm" id="pcBtnSave">Agregar plan</button>
+                  <button type="button" class="btn btn-outline btn-sm hidden" id="pcBtnCancel">Cancelar edición</button>
+                </div>
+                <p class="form-status" id="priceStatus" role="status"></p>
+              </form>
+            </div>
+
+            <div class="admin-list-card">
+              <h3>Planes actuales <span id="priceCount" class="count-badge"></span></h3>
+              <div id="adminPriceList"><!-- JS --></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======= TORNEOS ======= -->
+        <div class="admin-panel" id="panel-torneos">
+          <div class="admin-grid">
+            <div class="admin-form-card">
+              <h3 id="tourFormTitle">Agregar torneo</h3>
+              <form id="tournamentForm" novalidate>
+                <input type="hidden" id="tId">
+                <div class="form-row">
+                  <input type="text" id="tGame" placeholder="Juego (ej. FIFA 26)" required>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="tTitle" placeholder="Título (ej. Torneo FIFA Weekend)" required>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="tDate" placeholder="Fecha (ej. Sáb 22 Ago · 3:00 PM)" required>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="tPrize" placeholder="Premio en guaraníes (ej. ₲750.000 en premios)" required>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="tSlots" placeholder="Cupos (ej. 32 cupos)" required>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="tDesc" placeholder="Descripción" required>
+                </div>
+                <div class="form-row image-upload-row">
+                  <label class="image-upload" id="tourImageUploadLabel">
+                    <input type="file" id="tImage" accept="image/*">
+                    <span id="tourUploadPlaceholder">&#128247; Subir imagen del torneo (opcional)</span>
+                    <img id="tourUploadPreview" class="hidden" alt="Vista previa">
+                  </label>
+                  <button type="button" class="btn btn-sm btn-danger hidden" id="btnRemoveTourImage">Quitar imagen</button>
+                </div>
+                <div class="admin-actions">
+                  <button type="submit" class="btn btn-primary btn-sm" id="tBtnSave">Agregar torneo</button>
+                  <button type="button" class="btn btn-outline btn-sm hidden" id="tBtnCancel">Cancelar edición</button>
+                </div>
+                <p class="form-status" id="tourStatus" role="status"></p>
+              </form>
+            </div>
+
+            <div class="admin-list-card">
+              <h3>Torneos actuales <span id="tourCount" class="count-badge"></span></h3>
+              <div id="adminTournamentList"><!-- JS --></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="index.html" class="logo"><span class="logo-icon">&#x1F3AE;</span><span class="logo-text">Ciber del Bosque</span></a>
+      <p class="copyright">&copy; <span id="year"></span> Ciber del Bosque. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    if (sessionStorage.getItem("ciberAdminSession") !== "1") {
+      location.replace("index.html");
+    }
+  </script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
