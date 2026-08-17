@@ -50,6 +50,11 @@ body {
   background-color: #7a0000;
   filter: contrast(1.08) saturate(1.15) brightness(1.02);
 }
+.bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20, 10, 8, 0.45), rgba(14, 8, 6, 0.7));
+}
 
 @media (max-width: 768px) {
   .bg-layout { grid-template-columns: 0.5fr 6fr 0.5fr; }
