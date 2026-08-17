@@ -26,21 +26,31 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
-  background-color: #b8ad92;
+  background-color: #ffffff;
   color: var(--text);
   line-height: 1.6;
   overflow-x: hidden;
 }
 
-/* ---------- Fondo ---------- */
+/* ---------- Fondo dividido en 3 columnas ---------- */
 .bg-layout {
   position: fixed;
   inset: 0;
   z-index: -1;
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
   pointer-events: none;
 }
-.bg-left, .bg-right, .bg-center {
-  background-color: #b8ad92;
+.bg-col { min-width: 0; }
+.bg-left, .bg-right {
+  background-color: #ffffff;
+}
+.bg-center {
+  background-color: #000000;
+}
+
+@media (max-width: 768px) {
+  .bg-layout { grid-template-columns: 0.5fr 6fr 0.5fr; }
 }
 
 img { max-width: 100%; display: block; }
