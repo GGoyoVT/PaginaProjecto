@@ -12,6 +12,7 @@
   --orange: #ff7a18;
   --green: #2ecc71;
   --blood: #8a0303;
+  --gold: #d4af37;
   --text: #e8eef7;
   --text-muted: #9fb0c9;
   --border: rgba(255, 255, 255, 0.08);
@@ -162,11 +163,11 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
   border-radius: 8px;
   font-size: 0.9rem;
   font-weight: 500;
-  color: var(--text-muted);
+  color: var(--gold);
   transition: color 0.2s ease, background 0.2s ease;
 }
-.nav-link:hover { color: var(--text); background: rgba(59, 130, 246, 0.12); }
-.nav-link.active { color: var(--blood); }
+.nav-link:hover { color: var(--text); background: rgba(212, 175, 55, 0.12); }
+.nav-link.active { color: var(--gold); }
 
 .btn-cta { margin-left: 8px; }
 
