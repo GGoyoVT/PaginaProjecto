@@ -214,7 +214,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
   height: auto;
   border-radius: 50%;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-  border: 3px solid rgba(255, 122, 24, 0.6);
+  border: 3px solid rgba(46, 204, 113, 0.6);
   animation: float 4s ease-in-out infinite;
 }
 @keyframes float {
