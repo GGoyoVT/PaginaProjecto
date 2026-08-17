@@ -1,5 +1,5 @@
 /* ============================================================
-   Cyber del Bosque — Panel de administración (productos, precios, torneos)
+   Cyber El Bosque — Panel de administración (productos, precios, torneos)
    ============================================================ */
 
 const PRODUCTS_KEY = "ciberProducts";

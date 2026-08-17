@@ -1,8 +1,8 @@
 /* ============================================================
-   Cyber del Bosque — Interactividad
+   Cyber El Bosque — Interactividad
    ============================================================ */
 
-const SITE_NAME = "Cyber del Bosque";
+const SITE_NAME = "Cyber El Bosque";
 const WHATSAPP_NUMBER = "000000000";
 
 /* ---------- Datos ---------- */
@@ -505,7 +505,7 @@ function setupScrollEffects() {
 
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".logo-text, .map iframe, title").forEach(el => {
-    if (el.textContent.includes("Cyber del Bosque")) return;
+    if (el.textContent.includes("Cyber El Bosque")) return;
   });
   document.getElementById("year").textContent = new Date().getFullYear();
   document.title = `${SITE_NAME} — Cyber Café & Gaming`;
