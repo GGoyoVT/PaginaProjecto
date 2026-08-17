@@ -26,7 +26,7 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
-  background-color: #ffffff;
+  background-color: #2ecc71;
   color: var(--text);
   line-height: 1.6;
   overflow-x: hidden;
@@ -43,10 +43,10 @@ body {
 }
 .bg-col { min-width: 0; }
 .bg-left, .bg-right {
-  background-color: #ffffff;
+  background-color: #2ecc71;
 }
 .bg-center {
-  background-color: #000000;
+  background-color: #5c3a21;
 }
 
 @media (max-width: 768px) {
