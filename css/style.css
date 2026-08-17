@@ -109,7 +109,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
 .btn:hover { transform: translateY(-2px); }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--orange), #e05e10);
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
   color: #fff;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
 }
@@ -316,7 +316,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
 }
 .filter-btn:hover { color: var(--text); border-color: rgba(59, 130, 246, 0.5); }
 .filter-btn.active {
-  background: linear-gradient(135deg, var(--orange), #e05e10);
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
   border-color: transparent;
   color: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
