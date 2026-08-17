@@ -11,10 +11,8 @@
   --blue-bright: #3b82f6;
   --orange: #ff7a18;
   --green: #2ecc71;
-  --blood: #8a0303;
-  --gold: #d4af37;
-  --text: #d4af37;
-  --text-muted: #b89c3a;
+  --text: #e8eef7;
+  --text-muted: #9fb0c9;
   --border: rgba(255, 255, 255, 0.08);
   --radius: 14px;
   --header-h: 72px;
@@ -28,7 +26,7 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
-  background-color: #2ecc71;
+  background-color: #7a0000;
   color: var(--text);
   line-height: 1.6;
   overflow-x: hidden;
@@ -45,10 +43,12 @@ body {
 }
 .bg-col { min-width: 0; }
 .bg-left, .bg-right {
-  background-color: #e8e6df;
+  background-color: #7a0000;
+  filter: contrast(1.08) saturate(1.15) brightness(1.02);
 }
 .bg-center {
-  background-color: #4a4a48;
+  background-color: #7a0000;
+  filter: contrast(1.08) saturate(1.15) brightness(1.02);
 }
 
 @media (max-width: 768px) {
@@ -68,9 +68,9 @@ button { font-family: inherit; cursor: pointer; }
 /* ---------- Tipografía ---------- */
 h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
 
-.neon { color: #8a0303; }
-.neon.orange { color: #8a0303; }
-.neon.green { color: #8a0303; }
+.neon { color: var(--blue-bright); }
+.neon.orange { color: var(--orange); }
+.neon.green { color: var(--green); }
 
 .section { padding: 84px 0; }
 .section-alt { background: radial-gradient(1200px 400px at 50% 0%, rgba(47,109,255,0.1), transparent 70%); }
@@ -82,13 +82,13 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
   font-size: 0.75rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--blood);
-  border: 1px solid rgba(138, 3, 3, 0.4);
+  color: var(--orange);
+  border: 1px solid rgba(255, 122, 24, 0.4);
   padding: 6px 14px;
   border-radius: 999px;
   margin-bottom: 14px;
 }
-.section-title { font-size: clamp(1.5rem, 3vw, 2.1rem); color: var(--gold); }
+.section-title { font-size: clamp(1.5rem, 3vw, 2.1rem); }
 .section-desc { color: var(--text-muted); margin-top: 12px; }
 
 /* ---------- Botones ---------- */
@@ -109,7 +109,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
 .btn:hover { transform: translateY(-2px); }
 
 .btn-primary {
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  background: linear-gradient(135deg, var(--orange), #e05e10);
   color: #fff;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
 }
@@ -163,11 +163,11 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
   border-radius: 8px;
   font-size: 0.9rem;
   font-weight: 500;
-  color: var(--gold);
+  color: var(--text-muted);
   transition: color 0.2s ease, background 0.2s ease;
 }
-.nav-link:hover { color: var(--text); background: rgba(212, 175, 55, 0.12); }
-.nav-link.active { color: var(--gold); }
+.nav-link:hover { color: var(--text); background: rgba(59, 130, 246, 0.12); }
+.nav-link.active { color: var(--green); }
 
 .btn-cta { margin-left: 8px; }
 
@@ -201,7 +201,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: transparent;
+  background: linear-gradient(180deg, rgba(20, 10, 8, 0.45), rgba(14, 8, 6, 0.7));
 }
 .hero-content { position: relative; z-index: 2; max-width: 720px; text-align: center; margin: 0 auto; }
 .hero-logo {
@@ -214,7 +214,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
   height: auto;
   border-radius: 50%;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-  border: 3px solid rgba(46, 204, 113, 0.6);
+  border: 3px solid rgba(255, 122, 24, 0.6);
   animation: float 4s ease-in-out infinite;
 }
 @keyframes float {
@@ -225,21 +225,21 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
   font-family: 'GodOfWar', serif;
   font-weight: 400;
   font-size: clamp(2.2rem, 7vw, 4rem);
-  color: var(--blood);
+  color: var(--text);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin: 22px 0 6px;
-  text-shadow: 0 0 18px rgba(138, 3, 3, 0.55), 0 0 42px rgba(138, 3, 3, 0.25);
+  text-shadow: 0 0 18px rgba(255, 122, 24, 0.55), 0 0 42px rgba(255, 122, 24, 0.25);
 }
 .hero-tag {
   font-family: var(--font-head);
   font-size: 0.78rem;
   letter-spacing: 0.2em;
-  color: var(--blood);
+  color: var(--green);
   margin-bottom: 18px;
 }
 .hero-title { font-size: clamp(2rem, 5.5vw, 3.4rem); font-weight: 900; text-transform: uppercase; }
-.hero-sub { color: var(--blood); font-size: 1.08rem; margin: 20px auto 32px; max-width: 540px; }
+.hero-sub { color: var(--text-muted); font-size: 1.08rem; margin: 20px auto 32px; max-width: 540px; }
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
 
 .hero-stats {
@@ -258,7 +258,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
 .stat:hover { transform: translateY(-4px); border-color: rgba(59, 130, 246, 0.5); }
-.stat strong { display: block; font-family: var(--font-head); font-size: 1.5rem; color: var(--blood); }
+.stat strong { display: block; font-family: var(--font-head); font-size: 1.5rem; color: var(--orange); }
 .stat span { font-size: 0.8rem; color: var(--text-muted); }
 
 /* ---------- Grid ---------- */
@@ -316,7 +316,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
 }
 .filter-btn:hover { color: var(--text); border-color: rgba(59, 130, 246, 0.5); }
 .filter-btn.active {
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  background: linear-gradient(135deg, var(--orange), #e05e10);
   border-color: transparent;
   color: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -356,7 +356,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
   font-size: 1.2rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--blood);
+  color: var(--green);
   margin-bottom: 18px;
 }
 .product-card:hover { transform: translateY(-6px); box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45); }
@@ -380,12 +380,12 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
   font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--blood);
+  color: var(--orange);
   font-weight: 700;
 }
 .product-name { font-family: var(--font-head); font-size: 0.95rem; }
 .product-desc { color: var(--text-muted); font-size: 0.8rem; flex: 1; }
-.product-price { font-family: var(--font-head); font-size: 1.25rem; color: var(--blood); }
+.product-price { font-family: var(--font-head); font-size: 1.25rem; color: var(--green); }
 .product-actions { display: flex; gap: 8px; margin-top: 10px; }
 .product-actions .btn { flex: 1; }
 
@@ -432,7 +432,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
   color: var(--text-muted);
   padding: 6px 0;
 }
-.price-card li::before { content: "\2713"; color: var(--blood); font-weight: 700; }
+.price-card li::before { content: "\2713"; color: var(--green); font-weight: 700; }
 
 .price-table {
   margin-top: 48px;
@@ -456,8 +456,8 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
 .price-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.2s ease; }
 .price-table tbody tr:hover { background: rgba(59, 130, 246, 0.07); }
 .price-table tbody tr:last-child { border-bottom: none; }
-.price-table tbody td:nth-child(3) { font-family: var(--font-head); color: var(--blood); }
-.price-table tbody tr.highlight td { color: var(--blood); font-weight: 700; background: rgba(138, 3, 3, 0.08); }
+.price-table tbody td:nth-child(3) { font-family: var(--font-head); color: var(--green); }
+.price-table tbody tr.highlight td { color: var(--green); font-weight: 700; background: rgba(46, 204, 113, 0.08); }
 .table-note { margin-top: 16px; color: var(--text-muted); font-size: 0.85rem; }
 
 /* ---------- Torneos ---------- */
@@ -479,8 +479,8 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
   font-size: 0.68rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--blood);
-  border: 1px solid rgba(138, 3, 3, 0.4);
+  color: var(--orange);
+  border: 1px solid rgba(255, 122, 24, 0.4);
   padding: 4px 12px;
   border-radius: 999px;
   margin-bottom: 14px;
@@ -497,7 +497,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
 .tournament-card h3 { font-size: 1.05rem; margin-bottom: 6px; }
 .tournament-card .tournament-meta { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 14px; }
 .tournament-card .tournament-meta span { display: inline-block; margin-right: 14px; }
-.tournament-prize { font-family: var(--font-head); color: var(--blood); font-size: 1.1rem; margin-bottom: 16px; }
+.tournament-prize { font-family: var(--font-head); color: var(--green); font-size: 1.1rem; margin-bottom: 16px; }
 
 /* ---------- Contacto ---------- */
 .contact-grid {
@@ -519,7 +519,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
 }
 .info-item h4 { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 2px; }
 .info-item p { font-size: 0.92rem; }
-.info-item a { color: var(--blood); }
+.info-item a { color: var(--blue-bright); }
 .info-item a:hover { text-decoration: underline; }
 
 .socials { display: flex; gap: 10px; margin-top: 18px; }
@@ -527,12 +527,12 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
   width: 42px; height: 42px;
   display: flex; align-items: center; justify-content: center;
   font-size: 1.15rem;
-  border: 1px solid var(--gold);
+  border: 1px solid var(--border);
   border-radius: 10px;
-  color: var(--gold);
+  color: var(--text-muted);
   transition: all 0.2s ease;
 }
-.social-link:hover { color: var(--blood); border-color: rgba(138, 3, 3, 0.5); transform: translateY(-3px); }
+.social-link:hover { color: var(--green); border-color: rgba(46, 204, 113, 0.5); transform: translateY(-3px); }
 
 .contact-form {
   background: var(--bg-card);
@@ -564,7 +564,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
 }
 .contact-form select { appearance: none; }
 .form-status { margin-top: 12px; font-size: 0.85rem; min-height: 1.2em; }
-.form-status.ok { color: var(--blood); }
+.form-status.ok { color: var(--green); }
 .form-status.err { color: #ff6b6b; }
 
 .map {
@@ -580,7 +580,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
 .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; }
 .footer-links { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; }
 .footer-links a { color: var(--text-muted); font-size: 0.88rem; transition: color 0.2s ease; }
-.footer-links a:hover { color: var(--blood); }
+.footer-links a:hover { color: var(--green); }
 .copyright { color: var(--text-muted); font-size: 0.82rem; }
 
 /* ---------- Botón WhatsApp flotante ---------- */
@@ -643,7 +643,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
   line-height: 1;
   transition: color 0.2s ease, transform 0.2s ease;
 }
-.modal-close:hover { color: var(--blood); transform: rotate(90deg); }
+.modal-close:hover { color: var(--orange); transform: rotate(90deg); }
 .modal-body { padding: 28px; }
 
 .modal-product-head { display: flex; gap: 18px; align-items: center; margin-bottom: 16px; }
@@ -657,14 +657,14 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
 }
 .modal-product-img.has-image { background: var(--bg-card); padding: 6px; }
 .modal-product-head h3 { font-size: 1.15rem; }
-.modal-price { font-family: var(--font-head); color: var(--blood); font-size: 1.4rem; }
+.modal-price { font-family: var(--font-head); color: var(--green); font-size: 1.4rem; }
 .modal-body .product-desc-full { color: var(--text-muted); font-size: 0.92rem; margin: 14px 0 20px; }
 .modal-form input { width: 100%; background: var(--bg-dark); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-family: inherit; font-size: 0.92rem; padding: 12px 14px; }
 .modal-form label { display: block; font-size: 0.82rem; color: var(--text-muted); margin: 12px 0 6px; }
 .modal-form .form-actions { display: flex; gap: 10px; margin-top: 18px; }
 .modal-form .form-actions .btn { flex: 1; }
 .modal-status { margin-top: 12px; font-size: 0.85rem; min-height: 1.2em; }
-.modal-status.ok { color: var(--blood); }
+.modal-status.ok { color: var(--green); }
 .modal-status.err { color: #ff6b6b; }
 
 /* ---------- Autenticación ---------- */
@@ -733,8 +733,8 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
   margin-left: 8px;
   padding: 2px 10px;
   border-radius: 999px;
-  background: rgba(138, 3, 3, 0.15);
-  color: var(--blood);
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--blue-bright);
   font-family: var(--font-head);
   font-size: 0.75rem;
 }
