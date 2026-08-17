@@ -221,12 +221,12 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
   50% { transform: translateY(-10px); }
 }
 .hero-brand {
-  font-family: 'Cinzel Decorative', serif;
-  font-weight: 900;
-  font-size: clamp(1.9rem, 6vw, 3.4rem);
+  font-family: 'GodOfWar', serif;
+  font-weight: 400;
+  font-size: clamp(2.2rem, 7vw, 4rem);
   color: var(--text);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   margin: 22px 0 6px;
   text-shadow: 0 0 18px rgba(255, 122, 24, 0.55), 0 0 42px rgba(255, 122, 24, 0.25);
 }
