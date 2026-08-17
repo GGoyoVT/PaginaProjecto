@@ -26,33 +26,21 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
-  background-color: #8a5a4a;
+  background-color: #b8ad92;
   color: var(--text);
   line-height: 1.6;
   overflow-x: hidden;
 }
 
-/* ---------- Fondo dividido en 3 columnas ---------- */
+/* ---------- Fondo ---------- */
 .bg-layout {
   position: fixed;
   inset: 0;
   z-index: -1;
-  display: grid;
-  grid-template-columns: 1fr 4fr 1fr;
   pointer-events: none;
 }
-.bg-col { min-width: 0; }
-.bg-left, .bg-right {
-  background-color: #8a5a4a;
-  filter: contrast(1.08) saturate(1.15) brightness(1.02);
-}
-.bg-center {
+.bg-left, .bg-right, .bg-center {
   background-color: #b8ad92;
-  filter: contrast(1.08) saturate(1.15) brightness(1.02);
-}
-
-@media (max-width: 768px) {
-  .bg-layout { grid-template-columns: 0.5fr 6fr 0.5fr; }
 }
 
 img { max-width: 100%; display: block; }
