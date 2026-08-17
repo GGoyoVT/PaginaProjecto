@@ -9,7 +9,7 @@
   --bg-card-hover: #3b1620;
   --blue: #3a0d18;
   --blue-bright: #3b82f6;
-  --orange: #ff7a18;
+  --orange: #d4af37;
   --green: #2ecc71;
   --text: #e8eef7;
   --text-muted: #9fb0c9;
@@ -88,7 +88,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--orange);
-  border: 1px solid rgba(255, 122, 24, 0.4);
+  border: 1px solid rgba(212, 175, 55, 0.4);
   padding: 6px 14px;
   border-radius: 999px;
   margin-bottom: 14px;
@@ -114,7 +114,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
 .btn:hover { transform: translateY(-2px); }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--orange), #e05e10);
+  background: linear-gradient(135deg, var(--orange), #b3901f);
   color: #fff;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
 }
@@ -219,7 +219,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
   height: auto;
   border-radius: 50%;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-  border: 3px solid rgba(255, 122, 24, 0.6);
+  border: 3px solid rgba(212, 175, 55, 0.6);
   animation: float 4s ease-in-out infinite;
 }
 @keyframes float {
@@ -234,7 +234,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin: 22px 0 6px;
-  text-shadow: 0 0 18px rgba(255, 122, 24, 0.55), 0 0 42px rgba(255, 122, 24, 0.25);
+  text-shadow: 0 0 18px rgba(212, 175, 55, 0.55), 0 0 42px rgba(212, 175, 55, 0.25);
 }
 .hero-tag {
   font-family: var(--font-head);
@@ -321,7 +321,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
 }
 .filter-btn:hover { color: var(--text); border-color: rgba(59, 130, 246, 0.5); }
 .filter-btn.active {
-  background: linear-gradient(135deg, var(--orange), #e05e10);
+  background: linear-gradient(135deg, var(--orange), #b3901f);
   border-color: transparent;
   color: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -485,7 +485,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--orange);
-  border: 1px solid rgba(255, 122, 24, 0.4);
+  border: 1px solid rgba(212, 175, 55, 0.4);
   padding: 4px 12px;
   border-radius: 999px;
   margin-bottom: 14px;
