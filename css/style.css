@@ -88,7 +88,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
   border-radius: 999px;
   margin-bottom: 14px;
 }
-.section-title { font-size: clamp(1.5rem, 3vw, 2.1rem); }
+.section-title { font-size: clamp(1.5rem, 3vw, 2.1rem); color: var(--gold); }
 .section-desc { color: var(--text-muted); margin-top: 12px; }
 
 /* ---------- Botones ---------- */
