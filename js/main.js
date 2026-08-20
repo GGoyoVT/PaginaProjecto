@@ -288,7 +288,7 @@ function isLoggedIn() {
 
 function setupAuth() {
   const authModal = document.getElementById("authModal");
-  const authBtn = document.getElementById("authBtn");
+  const heroLogo = document.getElementById("heroLogo");
   const adminLink = document.getElementById("adminLink");
   const form = document.getElementById("authForm");
   const userInput = document.getElementById("authUser");
@@ -300,7 +300,6 @@ function setupAuth() {
     adminLink.classList.toggle("hidden", !logged);
     const footerLink = document.getElementById("adminFooterLink");
     if (footerLink) footerLink.classList.toggle("hidden", !logged);
-    authBtn.textContent = logged ? "Salir" : "Ingresar";
   }
 
   function openAuth() {
@@ -311,7 +310,7 @@ function setupAuth() {
     authModal.setAttribute("aria-hidden", "false");
   }
 
-  authBtn.addEventListener("click", (e) => {
+  function handleLogoClick(e) {
     e.preventDefault();
     if (isLoggedIn()) {
       if (!confirm("¿Quieres cerrar la sesión de administrador?")) return;
@@ -320,7 +319,17 @@ function setupAuth() {
       return;
     }
     openAuth();
-  });
+  }
+
+  if (heroLogo) {
+    heroLogo.addEventListener("click", handleLogoClick);
+    heroLogo.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        handleLogoClick(e);
+      }
+    });
+  }
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();

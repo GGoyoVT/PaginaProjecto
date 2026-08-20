@@ -5,6 +5,8 @@
 const PRODUCTS_KEY = "ciberProducts";
 const PRICES_KEY = "ciberPrices";
 const TOURNAMENTS_KEY = "ciberTournaments";
+const ORDERS_KEY = "ciberOrders";
+const CONFIG_KEY = "ciberConfig";
 
 const DEFAULT_PRODUCTS = [
   { id: 9, name: "Pendrive 32GB", cat: "informatica", catLabel: "Informática", emoji: "💾", price: "₲40.000", desc: "Almacenamiento rápido y portátil para tus archivos." },
@@ -42,9 +44,25 @@ function saveKey(key, data) {
 const getProducts = () => loadKey(PRODUCTS_KEY, DEFAULT_PRODUCTS);
 const getPrices = () => loadKey(PRICES_KEY, DEFAULT_PRICES);
 const getTournaments = () => loadKey(TOURNAMENTS_KEY, DEFAULT_TOURNAMENTS);
+const getOrders = () => loadKey(ORDERS_KEY, []);
 const saveProducts = (d) => saveKey(PRODUCTS_KEY, d);
 const savePrices = (d) => saveKey(PRICES_KEY, d);
 const saveTournaments = (d) => saveKey(TOURNAMENTS_KEY, d);
+const saveOrders = (d) => saveKey(ORDERS_KEY, d);
+
+const DEFAULT_CONFIG = {
+  envioPrice: "",
+  envioMin: "",
+  whatsapp: "",
+  address: "",
+  bank: "",
+  holder: "",
+  account: "",
+  aliasType: "",
+  alias: ""
+};
+const getConfig = () => ({ ...DEFAULT_CONFIG, ...loadKey(CONFIG_KEY, DEFAULT_CONFIG) });
+const saveConfig = (d) => saveKey(CONFIG_KEY, d);
 
 function slugify(str) {
   return String(str).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -468,12 +486,271 @@ function handleTournamentSubmit(e) {
 }
 
 /* ============================================================
+   PEDIDOS
+   ============================================================ */
+
+let orderEditingId = null;
+
+const ORDER_STATUS = { pendiente: "Pendiente", entregado: "Entregado", facturado: "Facturado" };
+
+function todayISO() {
+  const d = new Date();
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  return `${d.getFullYear()}-${mm}-${dd}`;
+}
+
+function statusBadge(s) {
+  return `<span class="status-badge ${s}">${ORDER_STATUS[s] || s}</span>`;
+}
+
+function parsePrice(str) {
+  const n = parseFloat(String(str || "").replace(/[^0-9.]/g, ""));
+  return isNaN(n) ? 0 : n;
+}
+
+function formatGuaranies(n) {
+  return "₲" + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+function renderOrders() {
+  const list = document.getElementById("adminOrderList");
+  const orders = getOrders();
+  document.getElementById("orderCount").textContent = orders.length;
+  if (!orders.length) {
+    list.innerHTML = `<p class="empty-msg">Aún no hay pedidos. Agrega el primero.</p>`;
+    return;
+  }
+  list.innerHTML = orders.map(o => `
+    <article class="admin-item" data-id="${o.id}">
+      <div class="admin-item-img">📦</div>
+      <div class="admin-item-body">
+        <span class="product-cat">${o.product} · 📅 ${o.date || "—"}</span>
+        <h4>${o.client} ${statusBadge(o.status || "pendiente")}</h4>
+        <p>💰 ${o.price}</p>
+        <p>🛵 Repartidor: ${o.delivery}</p>
+        <p>📍 ${o.place}</p>
+      </div>
+      <div class="admin-item-actions">
+        <button class="btn btn-sm btn-outline" data-action="edit" data-id="${o.id}">Editar</button>
+        <button class="btn btn-sm btn-danger" data-action="delete" data-id="${o.id}">Borrar</button>
+      </div>
+    </article>
+  `).join("");
+}
+
+function resetOrderForm() {
+  orderEditingId = null;
+  document.getElementById("oId").value = "";
+  document.getElementById("oProduct").value = "";
+  document.getElementById("oPrice").value = "";
+  document.getElementById("oClient").value = "";
+  document.getElementById("oDelivery").value = "";
+  document.getElementById("oPlace").value = "";
+  document.getElementById("oDate").value = todayISO();
+  document.getElementById("oStatus").value = "pendiente";
+  document.getElementById("orderFormTitle").textContent = "Agregar pedido";
+  document.getElementById("oBtnSave").textContent = "Agregar pedido";
+  document.getElementById("oBtnCancel").classList.add("hidden");
+  setStatus("orderStatus", "");
+}
+
+function startEditOrder(id) {
+  const order = getOrders().find(o => o.id === id);
+  if (!order) return;
+  orderEditingId = id;
+  document.getElementById("oId").value = id;
+  document.getElementById("oProduct").value = order.product;
+  document.getElementById("oPrice").value = order.price;
+  document.getElementById("oClient").value = order.client;
+  document.getElementById("oDelivery").value = order.delivery;
+  document.getElementById("oPlace").value = order.place;
+  document.getElementById("oDate").value = order.date || todayISO();
+  document.getElementById("oStatus").value = order.status || "pendiente";
+  document.getElementById("orderFormTitle").textContent = "Editar pedido";
+  document.getElementById("oBtnSave").textContent = "Guardar cambios";
+  document.getElementById("oBtnCancel").classList.remove("hidden");
+  setStatus("orderStatus", "");
+  document.getElementById("orderForm").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function handleOrderSubmit(e) {
+  e.preventDefault();
+  const product = document.getElementById("oProduct").value.trim();
+  const price = document.getElementById("oPrice").value.trim();
+  const client = document.getElementById("oClient").value.trim();
+  const delivery = document.getElementById("oDelivery").value.trim();
+  const place = document.getElementById("oPlace").value.trim();
+  const date = document.getElementById("oDate").value || todayISO();
+  const status = document.getElementById("oStatus").value;
+
+  if (!product || !price || !client || !delivery || !place) {
+    setStatus("orderStatus", "⚠️ Completa todos los campos obligatorios.", false);
+    return;
+  }
+
+  const orders = getOrders();
+
+  if (orderEditingId) {
+    const idx = orders.findIndex(o => o.id === orderEditingId);
+    if (idx !== -1) {
+      orders[idx] = { ...orders[idx], product, price, client, delivery, place, date, status };
+    }
+    setStatus("orderStatus", "✅ Pedido actualizado.");
+  } else {
+    orders.push({ id: nextId(orders), product, price, client, delivery, place, date, status });
+    setStatus("orderStatus", `✅ Pedido de "${client}" agregado.`);
+  }
+
+  saveOrders(orders);
+  renderOrders();
+  refreshGeneral();
+  resetOrderForm();
+}
+
+/* ============================================================
+   GENERAL (estadísticas y registro)
+   ============================================================ */
+
+function renderStats() {
+  const orders = getOrders();
+  const today = todayISO();
+  const facturadoHoy = orders.filter(o => o.status === "facturado" && (o.statusDate || o.date) === today).length;
+  const entregadosHoy = orders.filter(o => o.status === "entregado" && (o.statusDate || o.date) === today).length;
+  const pendientes = orders.filter(o => (o.status || "pendiente") === "pendiente").length;
+  const total = orders.length;
+  const promedio = total ? orders.reduce((acc, o) => acc + parsePrice(o.price), 0) / total : 0;
+
+  document.getElementById("statFacturadoHoy").textContent = facturadoHoy;
+  document.getElementById("statPendientes").textContent = pendientes;
+  document.getElementById("statEntregados").textContent = entregadosHoy;
+  document.getElementById("statTicketPromedio").textContent = formatGuaranies(promedio);
+}
+
+function renderPendingToday() {
+  const list = document.getElementById("pendingTodayList");
+  const today = todayISO();
+  const pending = getOrders().filter(o => (o.status || "pendiente") === "pendiente" && (o.date || today) === today);
+  document.getElementById("pendHoyCount").textContent = pending.length;
+  if (!pending.length) {
+    list.innerHTML = `<p class="empty-msg">🎉 No hay pedidos pendientes de hoy.</p>`;
+    return;
+  }
+  list.innerHTML = pending.map(o => `
+    <article class="admin-item" data-id="${o.id}">
+      <div class="admin-item-img">📦</div>
+      <div class="admin-item-body">
+        <span class="product-cat">${o.product}</span>
+        <h4>${o.client}</h4>
+        <p>💰 ${o.price} · 📍 ${o.place}</p>
+        <p>🛵 ${o.delivery}</p>
+      </div>
+      <div class="admin-item-actions">
+        <button class="btn btn-sm btn-primary" data-action="marcar" data-status="entregado" data-id="${o.id}">Entregado</button>
+        <button class="btn btn-sm btn-green" data-action="marcar" data-status="facturado" data-id="${o.id}">Facturado</button>
+      </div>
+    </article>
+  `).join("");
+}
+
+let regFilters = { from: "", to: "", status: "" };
+
+function renderRegistry() {
+  const list = document.getElementById("orderRegistry");
+  let orders = getOrders().slice().reverse();
+  const { from, to, status } = regFilters;
+  if (from) orders = orders.filter(o => (o.date || "") >= from);
+  if (to) orders = orders.filter(o => (o.date || "") <= to);
+  if (status) orders = orders.filter(o => (o.status || "pendiente") === status);
+  if (!orders.length) {
+    list.innerHTML = `<p class="empty-msg">No se encontraron pedidos con esos filtros.</p>`;
+    return;
+  }
+  list.innerHTML = orders.map(o => `
+    <article class="admin-item" data-id="${o.id}">
+      <div class="admin-item-img">📦</div>
+      <div class="admin-item-body">
+        <span class="product-cat">${o.product} · 📅 ${o.date || "—"}</span>
+        <h4>${o.client} ${statusBadge(o.status || "pendiente")}</h4>
+        <p>💰 ${o.price} · 🛵 ${o.delivery}</p>
+        <p>📍 ${o.place}</p>
+      </div>
+    </article>
+  `).join("");
+}
+
+function refreshGeneral() {
+  renderStats();
+  renderPendingToday();
+  renderRegistry();
+}
+
+function setOrderStatus(id, status) {
+  const orders = getOrders();
+  const idx = orders.findIndex(o => o.id === id);
+  if (idx === -1) return;
+  orders[idx].status = status;
+  orders[idx].statusDate = todayISO();
+  saveOrders(orders);
+  renderOrders();
+  refreshGeneral();
+  setStatus("orderStatus", `✅ Pedido marcado como ${ORDER_STATUS[status]}.`);
+}
+
+/* ============================================================
+   CONFIGURACIÓN
+   ============================================================ */
+
+function loadConfigForm() {
+  const cfg = getConfig();
+  document.getElementById("cfgEnvioPrice").value = cfg.envioPrice || "";
+  document.getElementById("cfgEnvioMin").value = cfg.envioMin || "";
+  document.getElementById("cfgWhatsapp").value = cfg.whatsapp || "";
+  document.getElementById("cfgAddress").value = cfg.address || "";
+  document.getElementById("cfgBank").value = cfg.bank || "";
+  document.getElementById("cfgHolder").value = cfg.holder || "";
+  document.getElementById("cfgAccount").value = cfg.account || "";
+  document.getElementById("cfgAliasType").value = cfg.aliasType || "";
+  document.getElementById("cfgAlias").value = cfg.alias || "";
+}
+
+function handleEnvioSubmit(e) {
+  e.preventDefault();
+  const envioPrice = document.getElementById("cfgEnvioPrice").value.trim();
+  const envioMin = document.getElementById("cfgEnvioMin").value.trim();
+  const whatsapp = document.getElementById("cfgWhatsapp").value.trim();
+  const address = document.getElementById("cfgAddress").value.trim();
+  if (!envioPrice || !envioMin || !whatsapp || !address) {
+    setStatus("envioStatus", "⚠️ Completa todos los campos.", false);
+    return;
+  }
+  saveConfig({ ...getConfig(), envioPrice, envioMin, whatsapp, address });
+  setStatus("envioStatus", "✅ Datos de envíos y pedidos guardados.");
+}
+
+function handleBankSubmit(e) {
+  e.preventDefault();
+  const bank = document.getElementById("cfgBank").value.trim();
+  const holder = document.getElementById("cfgHolder").value.trim();
+  const account = document.getElementById("cfgAccount").value.trim();
+  const aliasType = document.getElementById("cfgAliasType").value;
+  const alias = document.getElementById("cfgAlias").value.trim();
+  if (!bank || !holder || !account || !aliasType || !alias) {
+    setStatus("bankStatus", "⚠️ Completa todos los campos.", false);
+    return;
+  }
+  saveConfig({ ...getConfig(), bank, holder, account, aliasType, alias });
+  setStatus("bankStatus", "✅ Datos bancarios guardados.");
+}
+
+/* ============================================================
    TABS
    ============================================================ */
 
 function switchTab(tab) {
   document.querySelectorAll(".admin-tab").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
   document.querySelectorAll(".admin-panel").forEach(p => p.classList.toggle("active", p.id === `panel-${tab}`));
+  if (tab === "general") refreshGeneral();
 }
 
 /* ============================================================
@@ -541,6 +818,44 @@ function bindEvents() {
       setStatus("tourStatus", `✅ "${tournament.title}" eliminado.`);
     }
   });
+
+  // Pedidos
+  document.getElementById("orderForm").addEventListener("submit", handleOrderSubmit);
+  document.getElementById("oBtnCancel").addEventListener("click", resetOrderForm);
+  document.getElementById("adminOrderList").addEventListener("click", (e) => {
+    const editBtn = e.target.closest('[data-action="edit"]');
+    const deleteBtn = e.target.closest('[data-action="delete"]');
+    if (editBtn) { startEditOrder(Number(editBtn.dataset.id)); return; }
+    if (deleteBtn) {
+      const id = Number(deleteBtn.dataset.id);
+      const order = getOrders().find(o => o.id === id);
+      if (!confirm(`¿Seguro que quieres borrar el pedido de "${order ? order.client : "este cliente"}"?`)) return;
+      saveOrders(getOrders().filter(o => o.id !== id));
+renderOrders();
+  refreshGeneral();
+  loadConfigForm();
+      setStatus("orderStatus", `✅ Pedido de "${order.client}" eliminado.`);
+    }
+  });
+
+  // General
+  document.getElementById("pendingTodayList").addEventListener("click", (e) => {
+    const btn = e.target.closest('[data-action="marcar"]');
+    if (!btn) return;
+    setOrderStatus(Number(btn.dataset.id), btn.dataset.status);
+  });
+  document.getElementById("regFilterBtn").addEventListener("click", () => {
+    regFilters = {
+      from: document.getElementById("regFrom").value,
+      to: document.getElementById("regTo").value,
+      status: document.getElementById("regStatus").value
+    };
+    renderRegistry();
+  });
+
+  // Configuración
+  document.getElementById("envioForm").addEventListener("submit", handleEnvioSubmit);
+  document.getElementById("bankForm").addEventListener("submit", handleBankSubmit);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -548,6 +863,8 @@ document.addEventListener("DOMContentLoaded", () => {
   renderProducts();
   renderPrices();
   renderTournaments();
+  renderOrders();
+  refreshGeneral();
   setupImageUpload("pImage", "uploadPreview", "uploadPlaceholder", "btnRemoveImage",
     () => prodUploadedImage, (v) => { prodUploadedImage = v; });
   setupImageUpload("tImage", "tourUploadPreview", "tourUploadPlaceholder", "btnRemoveTourImage",

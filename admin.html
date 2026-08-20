@@ -51,6 +51,9 @@
           <button class="admin-tab active" id="tab-productos" data-tab="productos">🛒 Productos</button>
           <button class="admin-tab" id="tab-precios" data-tab="precios">💲 Precios</button>
           <button class="admin-tab" id="tab-torneos" data-tab="torneos">🏆 Torneos</button>
+          <button class="admin-tab" id="tab-general" data-tab="general">📊 General</button>
+          <button class="admin-tab" id="tab-pedidos" data-tab="pedidos">📦 Pedidos</button>
+          <button class="admin-tab" id="tab-config" data-tab="configuracion">⚙️ Configuración</button>
         </div>
 
         <!-- ======= PRODUCTOS ======= -->
@@ -182,6 +185,158 @@
             <div class="admin-list-card">
               <h3>Torneos actuales <span id="tourCount" class="count-badge"></span></h3>
               <div id="adminTournamentList"><!-- JS --></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======= GENERAL ======= -->
+        <div class="admin-panel" id="panel-general">
+          <div class="stats-grid" id="statsGrid">
+            <div class="stat-card">
+              <strong id="statFacturadoHoy">0</strong>
+              <span>Facturados hoy</span>
+            </div>
+            <div class="stat-card">
+              <strong id="statPendientes">0</strong>
+              <span>Pendientes</span>
+            </div>
+            <div class="stat-card">
+              <strong id="statEntregados">0</strong>
+              <span>Entregados hoy</span>
+            </div>
+            <div class="stat-card">
+              <strong id="statTicketPromedio">₲0</strong>
+              <span>Ticket promedio</span>
+            </div>
+          </div>
+
+          <div class="admin-list-card">
+            <h3>Pendientes de hoy <span id="pendHoyCount" class="count-badge"></span></h3>
+            <div id="pendingTodayList"><!-- JS --></div>
+          </div>
+
+          <div class="admin-list-card">
+            <h3>Registro de pedidos</h3>
+            <div class="reg-filters">
+              <label>Desde
+                <input type="date" id="regFrom">
+              </label>
+              <label>Hasta
+                <input type="date" id="regTo">
+              </label>
+              <label>Estado
+                <select id="regStatus">
+                  <option value="">Todos</option>
+                  <option value="pendiente">Pendiente</option>
+                  <option value="entregado">Entregado</option>
+                  <option value="facturado">Facturado</option>
+                </select>
+              </label>
+              <button type="button" class="btn btn-primary btn-sm" id="regFilterBtn">Filtrar</button>
+            </div>
+            <div id="orderRegistry"><!-- JS --></div>
+          </div>
+        </div>
+
+        <!-- ======= PEDIDOS ======= -->
+        <div class="admin-panel" id="panel-pedidos">
+          <div class="admin-grid">
+            <div class="admin-form-card">
+              <h3 id="orderFormTitle">Agregar pedido</h3>
+              <form id="orderForm" novalidate>
+                <input type="hidden" id="oId">
+                <div class="form-row">
+                  <input type="text" id="oProduct" placeholder="Producto (ej. Gaseosa 500ml)" required>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="oPrice" placeholder="Precio en guaraníes (ej. ₲15.000)" required>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="oClient" placeholder="Cliente (ej. Juan Pérez)" required>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="oDelivery" placeholder="Repartidor (ej. Carlos)" required>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="oPlace" placeholder="Lugar de entrega (ej. Av. Principal 123)" required>
+                </div>
+                <div class="form-row">
+                  <input type="date" id="oDate" required>
+                </div>
+                <div class="form-row">
+                  <select id="oStatus" required>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="entregado">Entregado</option>
+                    <option value="facturado">Facturado</option>
+                  </select>
+                </div>
+                <div class="admin-actions">
+                  <button type="submit" class="btn btn-primary btn-sm" id="oBtnSave">Agregar pedido</button>
+                  <button type="button" class="btn btn-outline btn-sm hidden" id="oBtnCancel">Cancelar edición</button>
+                </div>
+                <p class="form-status" id="orderStatus" role="status"></p>
+              </form>
+            </div>
+
+            <div class="admin-list-card">
+              <h3>Pedidos actuales <span id="orderCount" class="count-badge"></span></h3>
+              <div id="adminOrderList"><!-- JS --></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======= CONFIGURACIÓN ======= -->
+        <div class="admin-panel" id="panel-configuracion">
+          <div class="admin-grid">
+            <div class="admin-form-card">
+              <h3>Envíos y pedidos</h3>
+              <form id="envioForm" novalidate>
+                <div class="form-row">
+                  <input type="text" id="cfgEnvioPrice" placeholder="Precio del envío (ej. ₲10.000)" required>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="cfgEnvioMin" placeholder="Cantidad mínima para envío (ej. ₲50.000)" required>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="cfgWhatsapp" placeholder="Número de WhatsApp (ej. 595000000000)" required>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="cfgAddress" placeholder="Dirección del negocio" required>
+                </div>
+                <div class="admin-actions">
+                  <button type="submit" class="btn btn-primary btn-sm">Guardar envíos</button>
+                </div>
+                <p class="form-status" id="envioStatus" role="status"></p>
+              </form>
+            </div>
+
+            <div class="admin-form-card">
+              <h3>Transferencia bancaria</h3>
+              <form id="bankForm" novalidate>
+                <div class="form-row">
+                  <input type="text" id="cfgBank" placeholder="Banco (ej. Banco Nacional de Fomento)" required>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="cfgHolder" placeholder="Titularidad (nombre del titular)" required>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="cfgAccount" placeholder="Número de cuenta" required>
+                </div>
+                <div class="form-row">
+                  <select id="cfgAliasType" required>
+                    <option value="">Tipo de alias</option>
+                    <option value="ci">C.I</option>
+                    <option value="telefono">Número de teléfono</option>
+                  </select>
+                </div>
+                <div class="form-row">
+                  <input type="text" id="cfgAlias" placeholder="Número de alias" required>
+                </div>
+                <div class="admin-actions">
+                  <button type="submit" class="btn btn-primary btn-sm">Guardar datos bancarios</button>
+                </div>
+                <p class="form-status" id="bankStatus" role="status"></p>
+              </form>
             </div>
           </div>
         </div>
